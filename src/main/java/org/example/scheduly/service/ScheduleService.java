@@ -2,11 +2,11 @@ package org.example.scheduly.service;
 
 import org.example.scheduly.dto.ScheduleRequestDto;
 import org.example.scheduly.dto.ScheduleResponseDto;
-import org.springframework.stereotype.Service;
 
+import java.util.List;
 
-@Service
 public interface ScheduleService {
     ScheduleResponseDto saveSchedule(ScheduleRequestDto dto);
-
+    List<ScheduleResponseDto> findAllSchedules();
+    ScheduleResponseDto findScheduleById(Long id);
 }

@@ -10,13 +10,13 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ScheduleResponseDto {
 
-    private Long id;  //고유 식별자
-    private String name; //작성자명
-    private String password; //비밀번호
-    private String title; //일정 제목
-    private String contents; //일정 내용
-    private LocalDateTime createdAt; //생성일자
-    private LocalDateTime modifiedAt; //수정일자
+    private Long id;
+    private String name;
+    private String password;
+    private String title;
+    private String contents;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 
     public ScheduleResponseDto(Schedule schedule) {
         this.id = schedule.getId();

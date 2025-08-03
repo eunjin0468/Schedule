@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.Id;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Getter
 @NoArgsConstructor
@@ -34,5 +32,15 @@ public class Schedule extends BaseEntity {
         this.contents = contents;
     }
 
+
+    //dto를 넣으면 항상 매개변수가 들어와야 메소드 동작하나,기본타입으로 하면 누구든지 사용 가능 -> 유지보수 증가
+    public void update(String title, String contents) {
+        this.title = title;
+        this.contents = contents;
+    }
+
+    public void updateTitle(String title) {
+        this.title = title;
+    }
 
 }
