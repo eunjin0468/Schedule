@@ -30,7 +30,7 @@ public class ScheduleController {
 
     //전체 일정 조회
     @GetMapping
-    public List<ScheduleResponseDto> findAllSchedules(){
+    public List<ScheduleResponseDto> findAllSchedules() {
         return scheduleService.findAllSchedules();
     }
 
@@ -39,4 +39,12 @@ public class ScheduleController {
     public ResponseEntity<ScheduleResponseDto> findScheduleById(@PathVariable Long id) {
         return new ResponseEntity<>(scheduleService.findScheduleById(id), HttpStatus.OK);
     }
+
+    //일정 제목/작성자명 수정
+    @PatchMapping("/{id}")
+    public ResponseEntity<ScheduleResponseDto> update(@PathVariable Long id, @RequestBody ScheduleRequestDto dto) {
+        return new ResponseEntity<>(scheduleService.update(id, dto.getTitle(), dto.getContents()), HttpStatus.OK);
+    }
+
+
 }

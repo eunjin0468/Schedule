@@ -1,17 +1,15 @@
 package org.example.scheduly.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.Id;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Getter
 @NoArgsConstructor
-//@AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Schedule extends BaseEntity {
 
     @Id @Setter
@@ -37,10 +35,6 @@ public class Schedule extends BaseEntity {
     public void update(String title, String contents) {
         this.title = title;
         this.contents = contents;
-    }
-
-    public void updateTitle(String title) {
-        this.title = title;
     }
 
 }
