@@ -10,4 +10,6 @@ public interface ScheduleRepository{
 
     Schedule findScheduleById(Long id);
     Schedule saveSchedule(Schedule schedule);
+    void deleteSchedule(Long id);
+
 }
