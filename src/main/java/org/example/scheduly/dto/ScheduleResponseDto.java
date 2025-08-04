@@ -12,7 +12,7 @@ public class ScheduleResponseDto {
 
     private Long id;
     private String name;
-    private String password;
+    //private String password;
     private String title;
     private String contents;
     private LocalDateTime createdAt;
@@ -25,6 +25,6 @@ public class ScheduleResponseDto {
         this.contents = schedule.getContents();
         this.createdAt = schedule.getCreatedAt();
         this.modifiedAt = schedule.getModifiedAt();
-        this.password = schedule.getPassword();
+        //this.password = schedule.getPassword();
     }
 }
