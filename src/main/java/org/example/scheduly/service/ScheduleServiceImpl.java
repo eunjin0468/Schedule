@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -25,7 +26,8 @@ public class ScheduleServiceImpl implements ScheduleService {
                 dto.getName(),
                 dto.getPassword(),
                 dto.getTitle(),
-                dto.getContents()
+                dto.getContents(),
+                dto.getAuthor()
         );
         Schedule savedSchedule = scheduleRepository.saveSchedule(schedule); // 커스텀 메서드 사용
         return new ScheduleResponseDto(savedSchedule);
@@ -46,26 +48,44 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public ScheduleResponseDto update(Long id, String title, String contents) {
+    public ScheduleResponseDto update(Long id, String title, String name, String password) {
         Schedule schedule = scheduleRepository.findScheduleById(id);
+
         if (schedule == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id= " + id);
         }
-        if (title == null || contents == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "The title and contents are required values");
+
+        if (password == null || !password.equals(schedule.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Password mismatch");
         }
-        schedule.update(title, contents);
+
+        if (title == null || name == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Title and name are required");
+        }
+
+        // 일정 제목과 작성자명만 수정
+        schedule.update(title, name);
+
+        // 수정일자 갱신
+        schedule.setModifiedAt(LocalDateTime.now());
+
         return new ScheduleResponseDto(schedule);
     }
 
     @Override
-    public void deleteSchedule(Long id) {
+    public void deleteSchedule(Long id, String password) {
         Schedule schedule = scheduleRepository.findScheduleById(id);
 
         if (schedule == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id= " + id);
         }
+
+        if (password == null || !password.equals(schedule.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Password mismatch");
+        }
+
         scheduleRepository.deleteSchedule(id);
     }
+
 
 }

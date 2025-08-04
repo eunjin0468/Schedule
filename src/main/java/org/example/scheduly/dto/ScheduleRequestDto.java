@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 public class ScheduleRequestDto {
     private String name;
     private String password;
-    private String author;
     private String contents;
     private String title;
+    private String author;
 }
 

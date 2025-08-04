@@ -27,7 +27,6 @@ public class ScheduleController {
         //Service Layer 호출, 응답
         return new ResponseEntity<>(scheduleService.saveSchedule(dto), HttpStatus.CREATED);
     }
-
     //전체 일정 조회
     @GetMapping
     public List<ScheduleResponseDto> findAllSchedules() {
@@ -43,13 +42,15 @@ public class ScheduleController {
     //일정 제목/작성자명 수정
     @PatchMapping("/{id}")
     public ResponseEntity<ScheduleResponseDto> update(@PathVariable Long id, @RequestBody ScheduleRequestDto dto) {
-        return new ResponseEntity<>(scheduleService.update(id, dto.getTitle(), dto.getContents()), HttpStatus.OK);
+        ScheduleResponseDto updated = scheduleService.update(id, dto.getTitle(), dto.getName(), dto.getPassword());
+        return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteScheduleById(@PathVariable Long id) {
-        scheduleService.deleteSchedule(id);
+    public ResponseEntity<Void> deleteScheduleById(@PathVariable Long id, @RequestParam String password) {
+        scheduleService.deleteSchedule(id, password);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
 
 }
